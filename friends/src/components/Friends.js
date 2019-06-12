@@ -67,11 +67,10 @@ class Friends extends React.Component {
             <div>
                 {this.state.friends.map(friend => {
                     return(
-                        <Friend friend = {friend} friends = {this.state.friends} />
-                        
+                        <Friend key = {Math.random()} friend = {friend} />
                     )
                 })}
-                <form onSubmit = {this.submitHandler}>
+                <form >
                     <input 
                         onChange = {this.changeHandler} 
                         name = "name" value = {this.state.name} 
@@ -84,7 +83,7 @@ class Friends extends React.Component {
                         onChange = {this.changeHandler} 
                         name = "age" value = {this.state.age} 
                         placeholder = "age" />
-                    <button onClick = {this.submitHandler} >Submit</button>
+                    <button onSubmit = {this.submitHandler} >Submit</button>
                 </form>
             </div>
         )
