@@ -48,6 +48,18 @@ class Friends extends React.Component {
         })
     }
 
+ 
+
+    handleSubmit = event => {
+        event.preventDefault();
+    
+        axios.delete(`https://jsonplaceholder.typicode.com/users/${this.state.id}`)
+          .then(res => {
+            console.log(res);
+            console.log(res.data);
+          })
+      }
+
 
 
     render(){
@@ -55,7 +67,8 @@ class Friends extends React.Component {
             <div>
                 {this.state.friends.map(friend => {
                     return(
-                        <Friend friend = {friend} />
+                        <Friend friend = {friend} friends = {this.state.friends} />
+                        
                     )
                 })}
                 <form onSubmit = {this.submitHandler}>
