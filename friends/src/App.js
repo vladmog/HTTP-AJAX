@@ -6,7 +6,7 @@ import Friends from './components/Friends.js'
 function App() {
   return (
     <div className="App">
-      <Friends /> 
+      <Friends />  
     </div>
   );
 }

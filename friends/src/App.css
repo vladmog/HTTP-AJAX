@@ -1,5 +1,7 @@
 .App {
-  text-align: center;
+
+  width: 70vw;
+  margin: auto;
 }
 
 .App-logo {
@@ -34,4 +36,15 @@
 
 h3 {
   margin: 0px;
+}
+
+.friend {
+  /* border: solid red 1px; */
+  margin-bottom: 20px;
+}
+
+
+.friendsList {
+  display: flex;
+  flex-direction: column;
 }

@@ -15,40 +15,46 @@ let friends = [
     name: 'Ben',
     age: 30,
     email: 'ben@lambdaschool.com',
+    gender: "m"
   },
   {
     id: 2,
     name: 'Austen',
     age: 32,
     email: 'austen@lambdaschool.com',
+    gender: "m"
   },
   {
     id: 3,
     name: 'Ryan',
     age: 35,
     email: 'ryan@lambdaschool.com',
+    gender: "m"
   },
   {
     id: 4,
     name: 'Sean',
     age: 35,
     email: 'sean@lambdaschool.com',
+    gender: "m"
   },
   {
     id: 5,
     name: 'Michelle',
     age: 67,
     email: 'michelle@gmail.com',
+    gender: "f"
   },
   {
     id: 6,
     name: 'Luis',
     age: 47,
     email: 'luis@lambdaschool.com',
+    gender: "m"
   },
 ];
 
-app.use(cors());
+app.use(cors()); 
 app.use(bodyParser.json());
 
 app.get('/friends', (req, res) => {

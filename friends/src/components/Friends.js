@@ -9,7 +9,8 @@ class Friends extends React.Component {
         friends: [],
         name: "",
         email: "",
-        age: ""
+        age: "",
+        gender: ""
     }
 
     componentDidMount(){
@@ -29,58 +30,98 @@ class Friends extends React.Component {
         })
     }
 
+    
+    deleteHandler = (e, id) => {
+        e.preventDefault();
+        axios.delete(`http://localhost:5000/friends/${id}`)
+            .then(res => this.setState({friends: res.data}))
+            .catch ()
+    }
+
 
     submitHandler = e => {
+        e.preventDefault();
         let data = {
             id: this.state.friends.length + 1,
             name: this.state.name,
             email: this.state.email,
-            age: this.state.age
+            age: this.state.age,
+            gender: this.state.gender
         }
         let url = 'http://localhost:5000/friends'
         axios.post(url, data)
-            .then()
+            .then(res => this.setState({friends: res.data}))
             .catch ()
         this.setState({
             name: "",
             email: "",
-            age: ""
+            age: "",
+            gender: ""
         })
     }
 
- 
 
-    // deleteHandler = e => {
-    //     axios.delete(`http://localhost:5000/friends/${this.props.friend.id}`)
-    // }
+    updateHandler = (e, id) => { 
+        let newName = this.state.name;
+        if (newName === ""){
+            newName = this.state.friends[id - 1].name
+        }
 
-    updateHandler = id => { 
+        let newEmail = this.state.email;
+        if (newEmail === ""){
+            newEmail = this.state.friends[id - 1].email
+        }
+
+        let newAge = this.state.age;
+        if (newAge === ""){
+            newAge = this.state.friends[id - 1].age
+        }
+
+        let newGender = this.state.gender;
+        if (newGender === ""){
+            newGender = this.state.friends[id - 1].gender
+        }
+        
+
+        e.preventDefault();
         let data = {
-            name: this.state.name,
-            email: this.state.email,
-            age: this.state.age 
+            name: newName,
+            email: newEmail,
+            age: newAge,
+            gender: newGender
         } 
         let url = `http://localhost:5000/friends/${id}`
         axios.put(url, data) 
+            .then(res => this.setState({friends: res.data}))
+            .catch ()
+        this.setState({
+            name: "",
+            email: "",
+            age: "",
+            gender: ""
+        })
     }
 
     render(){
         return(
             <div>
-                {this.state.friends.map(friend => {
-                    return(
-                        <Friend 
-                            key = {Math.random()} 
-                            friend = {friend}
-                            updateHandler = {this.updateHandler}
-                            />
-                    )
-                })}
+                <div className = "friendsList">
+                    {this.state.friends.map(friend => {
+                        return(
+                            <Friend 
+                                key = {Math.random()} 
+                                friend = {friend}
+                                updateHandler = {this.updateHandler}
+                                deleteHandler = {this.deleteHandler}
+                                />
+                        )
+                    })}
+                </div>
                 <form onSubmit = {this.submitHandler}>
                     <input 
                         onChange = {this.changeHandler} 
                         name = "name" value = {this.state.name} 
-                        placeholder = "name" />
+                        placeholder = "name" /> 
                     <input 
                         onChange = {this.changeHandler} 
                         name = "email" value = {this.state.email} 
@@ -89,6 +130,10 @@ class Friends extends React.Component {
                         onChange = {this.changeHandler} 
                         name = "age" value = {this.state.age} 
                         placeholder = "age" />
+                    <input
+                        onChange = {this.changeHandler} 
+                        name = "gender" value = {this.state.gender} 
+                        placeholder = "gender" />
                     <button>Submit</button>
                 </form>
             </div>
