@@ -9,12 +9,19 @@ class Friend extends React.Component {
         axios.delete(`http://localhost:5000/friends/${this.props.friend.id}`)
     }
 
+  
+    
+
     render(){
+        console.log(this.props.friend)
         return(
-            <div className = "name">
+            <div className = "name">  
                 <form>
-                    <h1>{this.props.friend.name}</h1>
-                    <button key = {this.props.friend.id} onClick = {this.deleteHandler}>X</button>
+                    <h3>{this.props.friend.name}</h3>
+                    <span>email: {this.props.friend.email}</span>
+                    <span>----age: {this.props.friend.age}----</span>
+                    <button onClick = {this.deleteHandler}>X</button>
+                    <button onClick = {() => this.props.updateHandler(this.props.friend.id)}>Update</button>
                 </form>
             </div>
         )

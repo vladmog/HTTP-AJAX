@@ -50,27 +50,33 @@ class Friends extends React.Component {
 
  
 
-    handleSubmit = event => {
-        event.preventDefault();
-    
-        axios.delete(`https://jsonplaceholder.typicode.com/users/${this.state.id}`)
-          .then(res => {
-            console.log(res);
-            console.log(res.data);
-          })
-      }
+    // deleteHandler = e => {
+    //     axios.delete(`http://localhost:5000/friends/${this.props.friend.id}`)
+    // }
 
-
+    updateHandler = id => { 
+        let data = {
+            name: this.state.name,
+            email: this.state.email,
+            age: this.state.age 
+        } 
+        let url = `http://localhost:5000/friends/${id}`
+        axios.put(url, data) 
+    }
 
     render(){
         return(
             <div>
                 {this.state.friends.map(friend => {
                     return(
-                        <Friend key = {Math.random()} friend = {friend} />
+                        <Friend 
+                            key = {Math.random()} 
+                            friend = {friend}
+                            updateHandler = {this.updateHandler}
+                            />
                     )
                 })}
-                <form >
+                <form onSubmit = {this.submitHandler}>
                     <input 
                         onChange = {this.changeHandler} 
                         name = "name" value = {this.state.name} 
@@ -83,7 +89,7 @@ class Friends extends React.Component {
                         onChange = {this.changeHandler} 
                         name = "age" value = {this.state.age} 
                         placeholder = "age" />
-                    <button onSubmit = {this.submitHandler} >Submit</button>
+                    <button>Submit</button>
                 </form>
             </div>
         )
